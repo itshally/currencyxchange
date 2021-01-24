@@ -1,12 +1,17 @@
 import './App.css';
 import {Container} from '@material-ui/core'
-import Base from './components/Base'
+import Home from './components/Home'
+import ListOfCountries from './components/ListOfCountries'
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 function App() {
     return (
         <div className="App">
             <Container maxWidth="lg">
-              <Base/>
+                <Switch>
+                    <Route exact path="/" component={Home}/>
+                    <Route exact path="/list-of-countries" component={ListOfCountries}/>
+                </Switch>
             </Container>
         </div>
     );
