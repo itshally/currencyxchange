@@ -1,19 +1,21 @@
-import {GET_ALL_COUNTRIES} from '../actions/types'
+import {
+    GET_ALL_COUNTRIES
+} from '../actions/types'
 
 const INITIAL_STATE = {
-    loading: true, 
+    loading: true,
     country_list: []
 }
 
 const countries = (state = INITIAL_STATE, action) => {
-    switch (action.type){
+    switch (action.type) {
         case GET_ALL_COUNTRIES:
             return {
                 loading: false,
-                country_list: action.payload
+                    country_list: action.payload
             }
-        default:
-            return state
+            default:
+                return state
     }
 }
 

@@ -1,19 +1,22 @@
-import {CONVERT_CURRENCY} from '../actions/types'
+import {
+    CONVERT_CURRENCY
+} from '../actions/types'
 
 const INITIAL_STATE = {
-    loading: true, 
+    loading: true,
     converted_result: []
 }
 
 const converter = (state = INITIAL_STATE, action) => {
-    switch (action.type){
+    switch (action.type) {
         case CONVERT_CURRENCY:
             return {
+                ...state,
                 loading: false,
-                converted_result: action.payload
+                    converted_result: action.payload
             }
-        default:
-            return state
+            default:
+                return state
     }
 }
 
