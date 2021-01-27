@@ -8,7 +8,7 @@ import {compose} from 'redux';
 const styles = (theme) => ({
     tableContainer: {
         maxWidth: '65rem !important',
-        width: '100%',
+        width: 'auto',
         margin: '2rem auto',
         padding: '1.75rem',
         overflowX: 'auto'
