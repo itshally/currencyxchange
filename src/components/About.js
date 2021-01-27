@@ -5,12 +5,13 @@ import {makeStyles} from '@material-ui/core/styles';
 const useStyles = makeStyles({
     container: {
         backgroundColor: 'rgba(96.5%, 96.5%, 96.5%, 0.5)',
-        padding: '2rem 3.5rem',
+        padding: '2rem 1.5rem',
         margin: '2rem auto',
         borderRadius: '4px',
         boxShadow: '0px 1px 5px #aeaeae',
         '& p, h3, ul': {
-            textAlign: 'left'
+            textAlign: 'left',
+            lineHeight: '1.75'
         },
         '& ul': {
             listStyle: 'none',
@@ -34,9 +35,11 @@ const About = () => {
             <Container maxWidth="md" className={container}>
                 <h1 className={h1}>About</h1>
                 <Divider variant="middle"/>
-                <p>This is another project I created to explore and to practice my skill.</p>
-                <p>I have built a currency converter with the help of the technologies I listed
-                    below.</p>
+                <p>
+                    I created this project to practice my skills and to explore what I do. 
+                    This project is a currency converter, which enables you to calculate foreign exchange rates.
+                </p>
+                <p>I have created a currency converter using the technologies listed below.</p>
 
                 <h3>Technologies I used:</h3>
                 <ul>
