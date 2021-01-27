@@ -5,15 +5,18 @@ import {makeStyles} from '@material-ui/core/styles';
 const useStyles = makeStyles({
     footerContainer: {
         padding: '2rem 3.5rem',
-        margin: '2rem auto'
+        margin: '2rem auto',
+        lineHeight: '1.75'
     },
     links: {
         listStyle: 'none',
         display: 'inline-flex',
         margin: '5px auto',
+        padding: 0,
         fontSize: '12px',
         '& li': {
             margin: '0.5px 5px',
+            marginLeft: 0,
             '& a': {
                 textDecoration: 'none'
             }

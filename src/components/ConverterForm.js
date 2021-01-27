@@ -16,30 +16,44 @@ import {getAllCountries, convertCurrency} from '../actions/index'
 
 const styles = (theme) => ({
     formControl: {
-        margin: theme.spacing(1),
         width: '100%'
     },
-    selectEmpty: {
-        marginTop: theme.spacing(2)
-    },
     gridItems: {
-        margin: 'auto'
+        margin: 'auto',
+        width: '100%',
     },
     result: {
+        maxWidth: '45rem',
+        margin: 'auto',
         padding: '1rem 2rem',
         '& ul': {
             listStyle: 'none',
             margin: '5xp auto',
-            width: '50%',
+            width: '100%',
+            padding: 0,
             '& li': {
                 border: '1px solid #aeaeae',
+                textAlign: 'left !important',
                 padding: '15px',
                 margin: '15px auto',
                 borderRadius: '4px',
                 '& span': {
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    marginRight: '10px'
                 }
             }
+        }
+    },
+    submitBtn: {
+        boxShadow: 'none',
+        width: '100%',
+        border: '1px solid rgb(154, 204, 255)',
+        background: 'rgb(154, 204, 255)',
+        padding: '10px',
+        boxShadow: '1px 1px 5px rgb(154, 204, 255)',
+        '& :hover':{
+            boxShadow: 'none',
+            backgroundColor: '#81bfff'
         }
     }
 });
@@ -70,7 +84,7 @@ class ConverterForm extends Component {
 
         return (
             <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="outlined-age-native-simple">From</InputLabel>
+                <InputLabel htmlFor="from-country">From</InputLabel>
                 <Select
                     native
                     value={this.state.fromCountry}
@@ -80,7 +94,7 @@ class ConverterForm extends Component {
                     label="From"
                     inputProps={{
                     name: 'From',
-                    id: 'outlined-age-native-simple'
+                    id: 'from-country'
                 }}>
 
                     <option aria-label="None" value=""/> {cl !== undefined
@@ -103,7 +117,7 @@ class ConverterForm extends Component {
 
         return (
             <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="outlined-age-native-simple">To</InputLabel>
+                <InputLabel htmlFor="to-country">To</InputLabel>
                 <Select
                     native
                     value={this.state.toCountry}
@@ -113,7 +127,7 @@ class ConverterForm extends Component {
                     label="To"
                     inputProps={{
                     name: 'To',
-                    id: 'outlined-age-native-simple'
+                    id: 'to-country'
                 }}>
 
                     <option aria-label="None" value=""/> {cl !== undefined
@@ -186,9 +200,10 @@ class ConverterForm extends Component {
         const {classes} = this.props;
         return (
             <React.Fragment>
-                <Grid container spacing={3} justify="center" alignContent="center">
-                    <Grid item xs={12} className={classes.gridItems}>
+                <Grid container spacing={4} justify="center" alignContent="center">
+                    <Grid item xs={12} sm={12} md={4} className={classes.gridItems}>
                         <TextField
+                             className={classes.formControl}
                             id="outlined-basic"
                             label="Amount"
                             variant="outlined"
@@ -206,6 +221,7 @@ class ConverterForm extends Component {
                         <Button
                             type="submit"
                             variant="contained"
+                            className={classes.submitBtn}
                             onClick={() => {
                             return this
                                 .props
