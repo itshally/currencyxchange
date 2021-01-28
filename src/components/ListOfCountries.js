@@ -2,15 +2,15 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getAllCountries} from '../actions/index'
 import {withStyles} from '@material-ui/core/styles';
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core';
+import MaterialTable from 'material-table';
 import {compose} from 'redux';
 
 const styles = (theme) => ({
     tableContainer: {
-        maxWidth: '65rem !important',
+        maxWidth: '70rem !important',
         width: 'auto',
         margin: '2rem auto',
-        padding: '1.75rem',
+        padding: '0.5rem !important',
         overflowX: 'auto'
     },
     h1: {
@@ -37,37 +37,39 @@ class ListOfCountries extends Component {
         const cl = this.props.countries.country_list.results;
 
         return (
-            <div>
+            <div className={classes.tableContainer}>
                 <h1 className={classes.h1}>List of All Countries</h1>
-                <TableContainer className={classes.tableContainer} component={Paper}>
-                    <Table aria-label="simple table" className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell align="left">Country</TableCell>
-                                <TableCell align="right">Contry Code</TableCell>
-                                <TableCell align="right">Currency</TableCell>
-                                <TableCell align="right">Symbol</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {cl !== undefined
-                                ? Object
-                                    .keys(cl)
-                                    .map((key, index) => (
-                                        <TableRow key={cl[key].id}>
-                                            <TableCell component="th" scope="row">
-                                                {cl[key].name}
-                                            </TableCell>
-                                            <TableCell align="right">{cl[key].id}</TableCell>
-                                            <TableCell align="right">{cl[key].currencyName}</TableCell>
-                                            <TableCell align="right">{cl[key].currencySymbol}</TableCell>
-                                        </TableRow>
-                                    ))
-                                : <h2>Loading...</h2>
-}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                <MaterialTable
+                    title=""
+                    columns={[
+                        { title: 'Country', field: 'name' },
+                        { title: 'Country Code', field: 'id', align: 'center'},
+                        { title: 'Currency', field: 'currencyName', align: 'right'},
+                        { title: 'Symbol', field: 'currencySymbol', align: 'center' }
+                    ]}
+                    data={cl !== undefined
+                            ? Object
+                                .keys(cl)
+                                .map((key, index) => cl[key])
+                            : undefined
+                        }      
+                    options={{
+                        sorting: true,
+                        paginationType: 'normal',
+                        showTitle: false,
+                        headerStyle: {
+                            background: 'rgba(154,204,255,1)',
+                            fontWeight: 'bold',
+                            fontSize: '1rem'
+                        }
+                    }}
+                    style={{
+                        backgroundColor: 'rgba(96.5%, 96.5%, 96.5%, 0.5)',
+                        padding: '2rem 0.5rem',
+                        margin: '2rem auto',
+                        boxShadow: '0px 1px 5px #aeaeae'
+                    }}
+                />
             </div>
         )
     }
