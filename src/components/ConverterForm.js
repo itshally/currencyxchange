@@ -4,19 +4,17 @@ import {compose} from 'redux';
 import {withStyles} from '@material-ui/core/styles';
 import {
     TextField,
-    FormControl,
-    InputLabel,
-    Select,
     Button,
     Grid,
     Divider,
     Paper
 } from '@material-ui/core'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import {getAllCountries, convertCurrency} from '../actions/index'
 
 const styles = (theme) => ({
     formControl: {
-        width: '100%'
+        width: '100% !important'
     },
     gridItems: {
         margin: 'auto',
@@ -81,78 +79,88 @@ class ConverterForm extends Component {
     fromCountry = () => {
         const {classes} = this.props;
         const cl = this.props.countries.country_list.results;
+        const clArr = []
+        if(cl !== undefined){
+            Object
+            .keys(cl)
+            .map((key, index) => (
+                clArr.push(cl[key])
+            ))
+        }
 
         return (
-            <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="from-country">From</InputLabel>
-                <Select
-                    native
-                    value={this.state.fromCountry}
-                    onChange={e => {
-                    return this.setState({fromCountry: e.target.value})
-                }}
-                    label="From"
-                    inputProps={{
-                    name: 'From',
-                    id: 'from-country'
-                }}>
-
-                    <option aria-label="None" value=""/> {cl !== undefined
-                        ? Object
-                            .keys(cl)
-                            .map((key, index) => (
-                                <option key={cl[key].id} value={cl[key].currencyId}>{cl[key].currencyId}
-                                    - {cl[key].name}</option>
-                            ))
-                        : <p>--</p>
-}
-                </Select>
-            </FormControl>
+            <Autocomplete
+                className={classes.formControl}
+                id="combo-box-demo"
+                options={clArr.map(country => country)}
+                getOptionLabel={(option) => `${option.name} - ${option.currencySymbol}`}
+                renderOption={(option) => (
+                  <React.Fragment>
+                    {option.name} - {option.currencySymbol}
+                  </React.Fragment>
+                )}
+                freeSolo
+                style={{ width: 300 }}
+                renderInput={(params) =>  <TextField {...params} 
+                inputProps={{
+                    ...params.inputProps,
+                    autoComplete: 'new-password', // disable autocomplete and autofill
+                  }}
+                label="From Country" variant="outlined" />}
+                onChange={(event, newValue) => {
+                    if(newValue){
+                        this.setState({
+                            fromCountry: newValue.currencyId
+                        });
+                    }
+                  }}
+            />
         )
     }
 
     toCountry = () => {
         const {classes} = this.props;
         const cl = this.props.countries.country_list.results;
+        const clArr = []
+        if(cl !== undefined){
+            Object
+            .keys(cl)
+            .map((key, index) => (
+                clArr.push(cl[key])
+            ))
+        }
 
         return (
-            <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel htmlFor="to-country">To</InputLabel>
-                <Select
-                    native
-                    value={this.state.toCountry}
-                    onChange={e => {
-                    return this.setState({toCountry: e.target.value})
-                }}
-                    label="To"
-                    inputProps={{
-                    name: 'To',
-                    id: 'to-country'
-                }}>
-
-                    <option aria-label="None" value=""/> {cl !== undefined
-                        ? Object
-                            .keys(cl)
-                            .map((key, index) => (
-                                <option key={cl[key].id} value={cl[key].currencyId}>{cl[key].currencyId}
-                                    - {cl[key].name}</option>
-                            ))
-                        : <p>--</p>
-}
-                </Select>
-            </FormControl>
+            <Autocomplete
+                className={classes.formControl}
+                id="combo-box-demo"
+                options={clArr.map(country => country)}
+                getOptionLabel={(option) => `${option.name} - ${option.currencySymbol}`}
+                renderOption={(option) => (
+                  <React.Fragment>
+                    {option.name} - {option.currencySymbol}
+                  </React.Fragment>
+                )}
+                freeSolo
+                style={{ width: 300 }}
+                renderInput={(params) =>  <TextField {...params} 
+                inputProps={{
+                    ...params.inputProps,
+                    autoComplete: 'new-password', // disable autocomplete and autofill
+                  }}
+                label="To Country" variant="outlined" />}
+                onChange={(event, newValue) => {
+                    if(newValue){
+                        this.setState({
+                            toCountry: newValue.currencyId
+                        });
+                    }
+                  }}
+            />
         )
     }
 
     componentDidUpdate(prevProp, prevState) {
-        if (prevState.fromCountry !== this.state.fromCountry) {
-            this.setState({fromCountry: this.state.fromCountry})
-        }
-
-        if (prevState.toCountry !== this.state.toCountry) {
-            this.setState({toCountry: this.state.toCountry})
-        }
-
         if (prevProp.converter !== this.props.converter) {
             this.setState({
                 currValue: this.props.converter[Object.keys(this.props.converter)] !== undefined
@@ -179,12 +187,13 @@ class ConverterForm extends Component {
                     {this.props.converter[Object.keys(this.props.converter)] !== undefined
                         ? <li>
                                 <span>Rate:</span>
-                                {(this.props.converter[Object.keys(this.props.converter)].val).toFixed(2)}</li>
+                                    {(this.props.converter[Object.keys(this.props.converter)].val).toFixed(2)}
+                                </li>
                         : <li>
                             <span>Rate:</span>
                             --
                         </li>
-}
+                    }
                     <li>
                         <span>Amount:</span>
                         {this.state.amount}</li>
